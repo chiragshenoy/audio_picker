@@ -1,5 +1,5 @@
 name: audio_picker
-description: This plugin helps open a picker to get the absolute path of Audio files from your phone. If you ever wanted to play songs in your app, or upload audio files to your server, this plugin helps you get the absolute path of the audio file that you select.
+description: This plugin provides an Audio picker to retrieve the absolute path of Audio files.
 version: 1.0.0
 author: chiragshenoy <chiragshenoy@gmail.com>
 homepage: https://github.com/chiragshenoy/audio_picker
