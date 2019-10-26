@@ -1,5 +1,9 @@
 # audio_picker
 
+<a href="https://pub.dartlang.org/packages/audio_picker">
+<img src="https://img.shields.io/pub/v/audio_picker.svg" alt="Pub Package" />
+</a>
+
 A Flutter plugin for Android and iOS to pick local Audio files. This supports choosing Audio files from the Music App in iOS, and from the File Explorer in Android.
 
 ## Introduction
