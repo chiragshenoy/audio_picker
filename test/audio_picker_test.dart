@@ -16,6 +16,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await AudioPicker.platformVersion, '42');
+    expect(await AudioPicker.pickAudio(), '42');
   });
 }
