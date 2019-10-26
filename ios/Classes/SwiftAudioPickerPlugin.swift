@@ -26,6 +26,7 @@ public class SwiftAudioPickerPlugin: NSObject, FlutterPlugin, MPMediaPickerContr
         if(call.method == "pick_audio"){
             if (_flutterResult != nil){
                 // Return an error
+                result(nil)
             }
             
             _flutterResult = result
@@ -73,20 +74,20 @@ public class SwiftAudioPickerPlugin: NSObject, FlutterPlugin, MPMediaPickerContr
                         print("export failed: \(String(describing: error))")
                         return
                     }
-                    
-                    // use fileURL of temporary file here
-                    
+                                        
                     if let result = self._flutterResult {
                         print("\(fileURL.path)")
                         result(fileURL.path)
                     } else {
                         // Return an error
+                        self._flutterResult?(nil)
                     }
                     
                 }
             }
         } else {
             // Return an error
+            self._flutterResult?(nil)
         }
         
     }

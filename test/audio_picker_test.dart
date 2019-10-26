@@ -15,7 +15,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
+  test('pick_audio', () async {
     expect(await AudioPicker.pickAudio(), '42');
   });
 }
