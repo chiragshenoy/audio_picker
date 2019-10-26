@@ -1,6 +1,5 @@
 name: audio_picker_example
 description: Demonstrates how to use the audio_picker plugin.
-publish_to: 'none'
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
