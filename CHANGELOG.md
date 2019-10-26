@@ -1,3 +1,3 @@
-## 0.0.1
+## [1.0.0] - 2019-10-27
 
-* TODO: Describe initial release.
+* Initial Release
