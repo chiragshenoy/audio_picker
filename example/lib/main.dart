@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   AudioPlayer audioPlayer;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final navigatorKey = GlobalKey<NavigatorState>();
+  bool _loading=false;
 
   @override
   void initState() {
@@ -23,37 +24,41 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showLoading() {
-    showDialog(
-      context: navigatorKey.currentState.overlay.context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: new Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              new CircularProgressIndicator(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new Text("Loading"),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void dismissLoading() {
-    Navigator.pop(navigatorKey.currentState.overlay.context);
+    if (_loading == true) {
+      showDialog(
+        context: navigatorKey.currentState.overlay.context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: new Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text("Loading"),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 
   void openAudioPicker() async {
-    showLoading();
-    var path = await AudioPicker.pickAudio();
-    dismissLoading();
     setState(() {
-      _absolutePathOfAudio = path;
+      _loading = true;
     });
+    
+    await AudioPicker.pickAudio().then((value) {
+      setState(() {
+        _loading = false;
+        _absolutePathOfAudio = value;
+        print(value);
+      });
+    });
+
   }
 
   void playMusic() async {
