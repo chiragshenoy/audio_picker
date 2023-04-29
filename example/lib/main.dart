@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
               new CircularProgressIndicator(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: new Text("Loading"),
+                child: new Text('Loading'),
               ),
             ],
           ),
@@ -83,10 +83,13 @@ class _MyAppState extends State<MyApp> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                color: Colors.orange,
+              TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                  Colors.orange,
+                )),
                 child: Text(
-                  "Select an audio",
+                  'Select an audio',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
@@ -96,7 +99,7 @@ class _MyAppState extends State<MyApp> {
               _absolutePathOfAudio == null
                   ? Container()
                   : Text(
-                      "Absolute path",
+                      'Absolute path',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
               Padding(
@@ -105,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     Clipboard.setData(
                         new ClipboardData(text: _absolutePathOfAudio));
-                    _scaffoldKey.currentState.showSnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Copied path !')),
                     );
                   },
@@ -119,20 +122,28 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   _absolutePathOfAudio == null
                       ? Container()
-                      : FlatButton(
-                          color: Colors.green[400],
+                      : TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.green[400],
+                            ),
+                          ),
                           child: Text(
-                            "Play",
+                            'Play',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: playMusic,
                         ),
                   _absolutePathOfAudio == null
                       ? Container()
-                      : FlatButton(
-                          color: Colors.red[400],
+                      : TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.red[400],
+                            ),
+                          ),
                           child: Text(
-                            "Stop",
+                            'Stop',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: stopMusic,
