@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:audio_picker/audio_picker.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel channel = MethodChannel('audio_picker');
 
   setUp(() {
