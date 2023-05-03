@@ -10,6 +10,8 @@ import android.os.Environment
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -26,7 +28,7 @@ import android.annotation.TargetApi
 import android.database.Cursor
 
 
-class AudioPickerPlugin : MethodCallHandler {
+class AudioPickerPlugin : FlutterPlugin, MethodCallHandler {
 
     private val PERM_CODE = AudioPickerPlugin::class.java.hashCode() + 50 and 0x0000ffff
     private val permission = READ_EXTERNAL_STORAGE
@@ -37,10 +39,9 @@ class AudioPickerPlugin : MethodCallHandler {
         private var result: Result? = null
         private const val TAG = "AudioPicker"
 
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "audio_picker")
-            channel.setMethodCallHandler(AudioPickerPlugin())
+        override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPluginBinding) {
+            val channel = MethodChannel(flutterPluginBinding.binaryMessenger, "audio_picker")
+            channel.setMethodCallHandler(this)
             instance = registrar
 
             instance?.addActivityResultListener(object : PluginRegistry.ActivityResultListener {
@@ -200,8 +201,8 @@ class AudioPickerPlugin : MethodCallHandler {
             return null
         }
     }
-
-    override fun onMethodCall(call: MethodCall, result: Result) {
+    
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         if (call.method == "pick_audio") {
             AudioPickerPlugin.result = result
             openAudioPicker()
@@ -247,6 +248,10 @@ class AudioPickerPlugin : MethodCallHandler {
             Log.i(TAG, "Requesting permission: $permission")
             ActivityCompat.requestPermissions(it, arrayOf(permission), PERM_CODE)
         }
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
     }
 
 }
